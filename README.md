@@ -21,7 +21,6 @@ is slow to load and has a lot of unnecessary metadata.
 all of the data and saves it in `.npy` format for ease of 
 use in the training process. 
 
-
 ### Training the Networks
 `src/train/train.py` contains a script for training 
 deep CNNs on the created dataset. The other files 
