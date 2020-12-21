@@ -27,7 +27,7 @@ from pathlib import Path
 import argparse
 import pandas as pd
 
-from MedPicPy import medpicpy
+import medpicpy
 
 parser = argparse.ArgumentParser()
 parser.add_argument("dataset")
