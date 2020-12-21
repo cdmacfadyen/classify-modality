@@ -10,7 +10,9 @@ Craig Macfadyen Masters Dissertation Project at the University of St Andrews. Cl
  of images etc. This metadata is needed to run the download script. 
 The Jupyter notebooks in `src/tcia_download/metadata` should then be fully 
 run to process this metadata and create a train-validate-test 
-split. Then the download script `tcia_download_script_sync.py`
+split. All of the code for deciding which dataset 
+go into the train validate and test split can be seen in
+these Jupyter Notebooks. Then the download script `tcia_download_script_sync.py`
 can be run with the arguments "train", "validate", and "test" to 
 download the data for each of the splits. **This will take a long time.**
 
