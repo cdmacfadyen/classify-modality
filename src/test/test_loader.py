@@ -23,9 +23,8 @@ from statistics import mean
 import argparse
 import time
 
-def main(chosen_model, model_checkpoint):
-
-    data = "/data2/cdcm/preprocessed/test"
+def main(chosen_model, model_checkpoint, alternate_scaling=False):
+    data = "/data2/cdcm/preprocessed/test" if not alternate_scaling else "/data2/cdcm/rescaled/preprocessed/test"
     test_dataset = ImageAndPathDataset(
         root = data,
         loader = npy_loader,
@@ -44,18 +43,18 @@ def main(chosen_model, model_checkpoint):
     # model = _vgg("vgg16", "D", True)
 
 
-    if chosen_model.lower() == "resnet50":
+    if "resnet50" in chosen_model.lower():
         model = ResNet(Bottleneck, [3,4,6,3], 4)
     elif chosen_model.lower() == "resnet34":
         model = ResNet(BasicBlock, [3,4,6,3], 4)
-    elif chosen_model.lower() == "resnet18":
+    elif "resnet18" in chosen_model.lower():
         model = ResNet(BasicBlock, [2,2,2,2], 4)
     elif chosen_model.lower() == "basic":
         model = BasicNet()
-    elif chosen_model.lower() == "vgg":
-        model = _vgg("vgg16", "D", True)
     elif "vgg_dropout" in chosen_model.lower():
         model = _vgg("vgg16", "D", True, dropout=True)
+    elif "vgg" in chosen_model.lower():
+        model = _vgg("vgg16", "D", True)
     elif chosen_model.lower() == "mnasnet":
         model = MNASNet(1.0)
     elif chosen_model.lower() == "densenet":
@@ -65,8 +64,8 @@ def main(chosen_model, model_checkpoint):
         exit(0)
 
     model = nn.DataParallel(model)
-
-    checkpoint = torch.load(f"/data2/cdcm/models/{chosen_model}-{model_checkpoint}.pt", map_location=device)
+    weight_path = f"/data2/cdcm/models/{chosen_model}-{model_checkpoint}.pt" if not alternate_scaling else f"/data2/cdcm/models/rescaled/{chosen_model}-{model_checkpoint}.pt"
+    checkpoint = torch.load(weight_path, map_location=device)
     # from collections import OrderedDict
     # new_state_dict = OrderedDict()
     # for k, v in checkpoint["model_state_dict"].items():
@@ -102,10 +101,13 @@ def main(chosen_model, model_checkpoint):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("model")
-    parser.add_argument("checkpoint")
+    parser.add_argument("model",
+        help="name of model to evaluate, (resnet50, resnet34, resnet18, vgg, mnasnet, densenet)")
+    parser.add_argument("checkpoint",
+        help="model weight checkpoint to load")
+    parser.add_argument("--alternate_scaling", "-a", required=False, action="store_true")
     args = parser.parse_args()
 
     chosen_model = args.model
     model_checkpoint = args.checkpoint
-    main(chosen_model, model_checkpoint)
+    main(chosen_model, model_checkpoint, alternate_scaling=args.alternate_scaling)

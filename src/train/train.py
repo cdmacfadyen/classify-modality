@@ -37,13 +37,19 @@ from simpleemailbot import EmailBot
 import torch.utils.data as data
 
 parser = argparse.ArgumentParser()
-parser.add_argument("data_dir")
-parser.add_argument("model")
-parser.add_argument("checkpoint_dir")
-parser.add_argument("--epochs", required=False, type=int)
-parser.add_argument("--epochs_per_val", "-v", required=False, type=int)
+parser.add_argument("data_dir",
+    help="directory to load data from")
+parser.add_argument("model",
+    help="model to train, one of: resnet50, resnet34, resnet18, vgg, mnasnet or densenet")
+parser.add_argument("checkpoint_dir",
+    help="directory to store weight checkpoints")
+parser.add_argument("--epochs", required=False, type=int,
+    help="number of epochs to run for")
+parser.add_argument("--epochs_per_val", "-v", required=False, type=int,
+    help="how many epochs per run on validation set")
+parser.add_argument("--weight_decay", "-w", required=False, type=float,
+    help="l2 weight decay value for optimiser")
 parser.add_argument("--batched", required=False, action="store_true")
-parser.add_argument("--weight_decay", "-w", required=False, type=float)
 
 args = parser.parse_args()
 data_dir = args.data_dir

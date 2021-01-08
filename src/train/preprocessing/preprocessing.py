@@ -27,16 +27,24 @@ from pathlib import Path
 import argparse
 import pandas as pd
 
-import medpicpy
+from MedPicPy import medpicpy
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dataset")
-parser.add_argument("data_dir")
-parser.add_argument("--output_dir", required=False)
-parser.add_argument("--modality", required=False, default = "")
-parser.add_argument("--test", required=False, action="store_true")
-parser.add_argument("-f", "--full_run", required=False, action="store_true")
-parser.add_argument("-m", "--med_cache", required=False)
+parser.add_argument("dataset",
+    help="train, validate or test")
+parser.add_argument("data_dir",
+    help="directory to load data from")
+parser.add_argument("--output_dir", 
+    required=False,
+    help="directory to store data")
+parser.add_argument("--modality", required=False, default = "",
+    help="for debugging, only use images of this modality")
+parser.add_argument("--test", required=False, action="store_true",
+    help="for debugging, don't save any results")
+parser.add_argument("-f", "--full_run", required=False, action="store_true",
+    help="find the number of images (must be done for first run)")
+parser.add_argument("-m", "--med_cache", required=False,
+    help="direcotry for medpicpy cache")
 args = parser.parse_args()
 
 dataset = args.dataset

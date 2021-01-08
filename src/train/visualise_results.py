@@ -15,9 +15,12 @@ from matplotlib import colorbar
 import json
 
 parser = argparse.ArgumentParser()
-parser.add_argument("dataset")
-parser.add_argument("model")
-parser.add_argument("title")
+parser.add_argument("dataset",
+    help="train, validate or test")
+parser.add_argument("model",
+    help="model to evaluate")
+parser.add_argument("title",
+    help="title to use in graphics")
 args = parser.parse_args()
 
 plt.rcParams.update({"font.size":16})
@@ -118,7 +121,7 @@ with open(f"./results/images/{model}-report.txt", "w") as f:
     fig.suptitle(f"Confusion Matrix - {title}")
     cbar = fig.colorbar(img, ax=ax)
     cbar.set_label("Number of images")
-    plt.savefig(f"./results/images/{model}-{dataset}-confusion-matrix.png")
+    plt.savefig(f"./results/images/{model}-{dataset}-confusion-matrix.png", dpi=300)
 
     ##4
     # Precision and recall

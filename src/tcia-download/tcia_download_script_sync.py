@@ -28,9 +28,16 @@ from simpleemailbot import EmailBot
 bot = EmailBot("cdcm@st-andrews.ac.uk", "update")
 
 parser = argparse.ArgumentParser()
-parser.add_argument("--start", required=False, default = "")
-parser.add_argument("dataset", metavar="d")
-parser.add_argument("--out", required=True)
+parser.add_argument("--start", 
+    required=False,
+    default = "",
+    help="specific dataset to start from")
+parser.add_argument("dataset", 
+    metavar="d",
+    help="one of train, validate or test")
+parser.add_argument("--out", 
+    required=True,
+    help="directory to save data in")
 args = parser.parse_args()
 
 output_dir = args.out

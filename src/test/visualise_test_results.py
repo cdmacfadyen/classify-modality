@@ -156,10 +156,10 @@ def visualise_model_results(dataset, model, title, trained_with_batch_order):
         ax.set_xticks(np.arange(4))
         ax.set_xticklabels(classes)
         ax.set_yticklabels(classes)
-        fig.suptitle(f"Confusion Matrix - {title}")
+        fig.suptitle(f"Confusion Matrix - {title}", wrap=True)
         cbar = fig.colorbar(img, ax=ax)
         cbar.set_label("Number of Images")
-        plt.savefig(f"./results/images/{model}-{dataset}-confusion-matrix.png")
+        plt.savefig(f"./results/images/{model}-{dataset}-confusion-matrix.png", bbox_inches="tight", dpi=300)
 
         ##4
         # Precision and recall
@@ -184,15 +184,16 @@ def visualise_model_results(dataset, model, title, trained_with_batch_order):
 
         for dataset_for_image, percent in datasets_percentage.items():
             f.write(f"{dataset_for_image}, {percent}\n")
-    # print(datasets_correct)
-    # print(datasets_total)
 
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
-    parser.add_argument("dataset")
-    parser.add_argument("model")
-    parser.add_argument("title")
+    parser.add_argument("dataset",
+        help="dataset, one of train, validate or test")
+    parser.add_argument("model",
+        help="one of resnet50, resnet34, resnet18, vgg, mnasnet or densenet")
+    parser.add_argument("title",
+    "title to use in graphs")
     parser.add_argument("--trained_with_batch_order","-o", action="store_true", required=False)   # the class order that the model was trained on
 
 
