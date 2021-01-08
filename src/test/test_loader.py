@@ -18,7 +18,6 @@ from resnet import ResNet, Bottleneck, BasicBlock
 from vgg import _vgg
 from mnas_net import MNASNet
 from densenet import DenseNet
-from simpleemailbot import EmailBot
 from statistics import mean
 import argparse
 import time
@@ -93,8 +92,6 @@ def main(chosen_model, model_checkpoint, alternate_scaling=False):
     # return
 
     evaluation.evaluate(model, test_loader, test_dataset.classes, device, "test", f"{chosen_model}-{model_checkpoint}")
-    emailbot = EmailBot("cdcm@st-andrews.ac.uk", "update")
-    emailbot.email_me(message = f"Finished evaluation for {chosen_model}")
     times = []
 
 

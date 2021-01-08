@@ -22,7 +22,6 @@ import logging
 import os
 import numpy as np
 import matplotlib.pyplot as plt
-from simpleemailbot import EmailBot
 from pathlib import Path
 import argparse
 import pandas as pd
@@ -175,8 +174,5 @@ if args.output_dir:
     metadata.to_csv(f"{args.output_dir}/preprocessed/{dataset}-metadata.csv", index=False)
 else:
     metadata.to_csv(f"{data_dir}/preprocessed/{dataset}-metadata.csv", index=False)
-emailbot = EmailBot("cdcm@st-andrews.ac.uk", "update")
-message = f"preprocessing.py: Loaded {len(images)} images, {images.nbytes // 1000000}MB, in {end - start} seconds"
-emailbot.email_me(message = message)
 
 # medpicpy.clear_cache()

@@ -33,7 +33,6 @@ from densenet import DenseNet
 from data_loader import NpyDataLoader, BatchedDataset
 from evaluation import validate, print_batch_predictions, evaluate
 import argparse
-from simpleemailbot import EmailBot
 import torch.utils.data as data
 
 parser = argparse.ArgumentParser()
@@ -214,7 +213,3 @@ print_batch_predictions(model, validate_loader, classes, device)
 evaluate(model, validate_loader, classes, device, "validate", model_name=chosen_model)
 with open(f"./results/{chosen_model}-training-metrics.json", "w") as f:
     json.dump(metrics, f, indent=4)
-
-emailbot = EmailBot("cdcm@st-andrews.ac.uk", "update")
-message = f"{chosen_model} finished training."
-emailbot.email_me(message = message)

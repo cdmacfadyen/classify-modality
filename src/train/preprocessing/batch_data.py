@@ -10,7 +10,6 @@ import os
 from pathlib import Path
 import random
 import logging
-from simpleemailbot import EmailBot
 
 dataset = "validate"
 data_dir = "/data2/cdcm/rescaled"
@@ -69,6 +68,3 @@ if len(paths) > 0:  # one more batch to do
         images[selected_index] = image    
     np.savez(f"{data_dir}/batched/{dataset}/{batch_counter}", x=images,y=labels)
     batch_counter += 1
-
-bot = EmailBot("cdcm@st-andrews.ac.uk", "update")
-bot.email_me(message=f"finished batching {dataset}")

@@ -23,9 +23,6 @@ import subprocess
 import logging
 import sys
 import argparse
-from simpleemailbot import EmailBot
-
-bot = EmailBot("cdcm@st-andrews.ac.uk", "update")
 
 parser = argparse.ArgumentParser()
 parser.add_argument("--start", 
