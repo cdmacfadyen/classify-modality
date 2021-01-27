@@ -10,7 +10,7 @@ Craig Macfadyen Masters Dissertation Project at the University of St Andrews. Cl
  of images etc. This metadata is needed to run the download script. 
 The Jupyter notebooks in `src/tcia_download/metadata` should then be fully 
 run to process this metadata and create a train-validate-test 
-split. All of the code for deciding which dataset 
+split. All of the code for deciding which datasets
 go into the train validate and test split can be seen in
 these Jupyter Notebooks. Then the download script `tcia_download_script_sync.py`
 can be run with the arguments "train", "validate", and "test" to 
@@ -38,5 +38,5 @@ loads the saved weights to evaluate their
 performance on the test set. `src/test/test_loader.py`
 evaluates a given model on the test set and 
 saves the results to be analysed.
-`src/test/test_loader.py` does the visualisation and 
+`src/test/visualise_test_results.py` does the visualisation and 
 saves the images. 
